@@ -42,6 +42,7 @@ def ensure_user_data(user_id):
         user_data[str(user_id)] = {
             'points': 0,
             'premium': False,
+            'banned': False,
             'isshonk_uses': 0,
             'isshonk_reset': '',
             'daily_reset': '',
@@ -52,6 +53,7 @@ def ensure_user_data(user_id):
         # Ensure all keys are present
         user_data[str(user_id)].setdefault('points', 0)
         user_data[str(user_id)].setdefault('premium', False)
+        user_data[str(user_id)].setdefault('banned', False)
         user_data[str(user_id)].setdefault('isshonk_uses', 0)
         user_data[str(user_id)].setdefault('isshonk_reset', '')
         user_data[str(user_id)].setdefault('daily_reset', '')
@@ -68,6 +70,11 @@ def add_points(user_id, points):
 def is_premium(user_id):
     ensure_user_data(user_id)
     return user_data[str(user_id)]['premium']
+
+# Check if user is banned
+def is_banned(user_id):
+    ensure_user_data(user_id)
+    return user_data[str(user_id)]['banned']
 
 # Reset monthly usage for non-premium users
 def reset_isshonk_uses(user_id):
@@ -126,6 +133,12 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
+    user_id = str(message.author.id)
+
+    # Check if the user is banned
+    if is_banned(user_id):
+        return
+
     # Award points for each message
     add_points(message.author.id, 1)
 
@@ -134,6 +147,10 @@ async def on_message(message):
 @bot.command(name='balance')
 async def balance_command(ctx):
     ensure_user_data(ctx.author.id)
+    if is_banned(ctx.author.id):
+        await ctx.send("You are banned from using this bot.")
+        return
+
     points = user_data[str(ctx.author.id)]['points']
     await ctx.send(f"You have {points} :3's.")
 
@@ -141,6 +158,10 @@ async def balance_command(ctx):
 async def isshonk_command(ctx, option: str = None):
     ensure_user_data(ctx.author.id)
     user_id = str(ctx.author.id)
+
+    if is_banned(user_id):
+        await ctx.send("You are banned from using this bot.")
+        return
 
     if option == '-q':
         # Check queue position
@@ -197,8 +218,8 @@ async def blahaj_command(ctx, option: str = None):
     ensure_user_data(ctx.author.id)
     user_id = str(ctx.author.id)
 
-    if option == '-q':
-        await ctx.send("You have no queued blahaj requests.")
+    if is_banned(user_id):
+        await ctx.send("You are banned from using this bot.")
         return
 
     try:
@@ -235,17 +256,19 @@ async def blahaj_command(ctx, option: str = None):
         await ctx.send(f"Failed to fetch Blahaj image. An unexpected error occurred: {e}")
 
 @bot.command(name='shonklib')
-async def shonklib_command(ctx, option: str):
-    try:
-        # Ensure 'storage' directory exists
-        if not os.path.exists('storage'):
-            await ctx.send("No images in storage. Use /blahaj command to add images.")
-            return
+async def shonklib_command(ctx, option: str = None):
+    ensure_user_data(ctx.author.id)
+    user_id = str(ctx.author.id)
 
+    if is_banned(user_id):
+        await ctx.send("You are banned from using this bot.")
+        return
+
+    try:
         if option == '-d':
-            # Get list of image files and their sizes
+            # Zip the contents of the 'storage' directory
             files = []
-            for root, _, filenames in os.walk('storage'):
+            for root, dirs, filenames in os.walk('storage'):
                 for filename in filenames:
                     file_path = os.path.join(root, filename)
                     file_size = os.path.getsize(file_path)
@@ -299,13 +322,18 @@ async def shonklib_command(ctx, option: str):
         logger.error(f"Failed to create/send ShonkLib archive: {e}")
         await ctx.send("Failed to create/send ShonkLib archive.")
 
-@bot.command(name='dailyshonk')
+@bot.command(name='daily')
 async def daily_command(ctx):
     ensure_user_data(ctx.author.id)
     user_id = str(ctx.author.id)
+
+    if is_banned(user_id):
+        await ctx.send("You are banned from using this bot.")
+        return
+
     now = datetime.utcnow()
 
-    if user_data[user_id]['daily_reset']:
+    if user_data[user_id].get('daily_reset', ''):
         reset_date = datetime.fromisoformat(user_data[user_id]['daily_reset'])
         if now < reset_date + timedelta(days=1):
             await ctx.send("You have already collected your daily Blahaj picture. Try again tomorrow!")
@@ -353,7 +381,13 @@ async def daily_command(ctx):
 async def shonkcollect_command(ctx):
     ensure_user_data(ctx.author.id)
     user_id = str(ctx.author.id)
+
+    if is_banned(user_id):
+        await ctx.send("You are banned from using this bot.")
+        return
+
     shonks_collected = len(user_data[user_id]['shonks'])
     await ctx.send(f"You have collected {shonks_collected} Shonks.")
 
+# Replace 'TOKEN' with your actual bot token from Discord Developer Portal
 bot.run('TOKEN')
