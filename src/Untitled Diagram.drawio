@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.14">
+  <diagram name="Page-1" id="7uWWCjRIjRIQA6gD64SP">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Algorithm" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="8" y="107" width="546" height="737" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Start" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="270" y="8" width="96" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Input Data" style="rounded=1;arcSize=40;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="265" y="132" width="106" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="CalculateArea" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="131" y="504" width="161" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="DisplayResult" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="589" y="726" width="155" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Stop" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="620" y="894" width="92" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Are side &#xa; lengths &#xa; equal?" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="343" y="231" width="143" height="143" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Show error &#xa; message &#xa; and stop" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="356" y="447" width="163" height="163" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Store Result" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="55" y="683" width="136" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="12" value="-Side length entered by user" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.77;entryX=0.38;entryY=0;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="119" y="206" />
+              <mxPoint x="119" y="411" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="13" value="Area = side * side" style="curved=1;startArrow=none;endArrow=block;exitX=0.68;exitY=1;entryX=0.02;entryY=0.01;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="347" y="647" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="14" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1.01;entryX=0.5;entryY=0;" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="15" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.95;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="4" target="8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="415" y="206" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="16" value="No" style="curved=1;startArrow=none;endArrow=block;exitX=0.61;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="8" target="9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="437" y="411" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="17" value="Yes" style="curved=1;startArrow=none;endArrow=block;exitX=0.01;exitY=1;entryX=0.63;entryY=0;" edge="1" parent="1" source="8" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="309" y="411" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="18" value="Calculate{Calculate Area}" style="curved=1;startArrow=none;endArrow=block;exitX=0.39;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="5" target="10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="123" y="647" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
